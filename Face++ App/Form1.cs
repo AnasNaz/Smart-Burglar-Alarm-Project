@@ -52,10 +52,11 @@ namespace Facial_Recognition_Smart_Alarm
         private void Form1_Load(object sender, EventArgs e) //Gets called when the Application starts
         {
             //Connecting to serial port
-          
-            SerialCommunication._port = new SerialPort();
-            SerialCommunication._port.PortName = "COM3";
-            SerialCommunication._port.BaudRate = 9600;
+
+            SerialCommunication._port = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
+            // SerialCommunication._port.PortName = "COM3";
+            //  SerialCommunication._port.BaudRate = 9600;
+           
             SerialCommunication._port.Open();
 
             // Settings will be NULL in the first run. Create new list if so.
@@ -392,7 +393,7 @@ namespace Facial_Recognition_Smart_Alarm
         //Changes: async to void
         //Async apparently has an await method to wait for a certain event to occur
         //Using async to listen for arduino request
-        private async void BellListner() //Method that listens to calling bell signal. Calls the function that performs verification, upon signal reception
+      /*  private async void BellListner() //Method that listens to calling bell signal. Calls the function that performs verification, upon signal reception
         {
             // while (ListenForBell)
             //  {
@@ -406,31 +407,36 @@ namespace Facial_Recognition_Smart_Alarm
 
         //    Thread.Sleep(2000); //Suspends execution for 2 seconds. This is to avoid Bolt Cloud API request quota exhaustion
                                 // }
-        }
+        } */
         //Contributed code
         //Listen for arduino request for facial verification
         private void VerificationListener()
         {
             //Testing logic
-            string ArduinoData=null;
+            string ArduinoData = null;
+            Send_Verification_Results(true);
             while(Facial_Verification_Request)
            {
-                //ArduinoData =  SerialCommunication._port.ReadExisting();
+                //ArduinoData = SerialCommunication._port.ReadExisting();
                 ArduinoData = SerialCommunication._port.ReadLine();
+                //Console.WriteLine(ArduinoData);
+                //Console.WriteLine(ArduinoData.Length);
+                ArduinoData = ArduinoData.Trim();
                 Console.WriteLine(ArduinoData);
                 Console.WriteLine(ArduinoData.Length);
+
                 //Console.WriteLine("1".Length);
-               // Console.WriteLine(ArduinoData[0]);
-               // Console.WriteLine(ArduinoData[1]);
+                // Console.WriteLine(ArduinoData[0]);
+                // Console.WriteLine(ArduinoData[1]);
                 Console.WriteLine("Passed here");
 
 
-                  Console.WriteLine(string.Equals(ArduinoData, "123\n"));
-                if (string.Equals(ArduinoData,"123"))
+                  Console.WriteLine(string.Equals(ArduinoData, "1"));
+                if (string.Equals(ArduinoData,"1"))
                 {
                     Console.WriteLine("WORKS!");
                     Invoke(new Action(() => { RingBell_Click(null, null); }));
-                  //  Console.WriteLine(ArduinoData);
+                    Console.WriteLine(ArduinoData);
                     Thread.Sleep(2000);
                     Facial_Verification_Request = false;
                 }
