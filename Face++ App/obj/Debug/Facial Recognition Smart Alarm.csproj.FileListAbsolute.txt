@@ -1,0 +1,19 @@
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Facial Recognition Smart Alarm.exe.config
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Facial Recognition Smart Alarm.exe
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Facial Recognition Smart Alarm.pdb
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial Recognition Smart Alarm.csprojAssemblyReference.cache
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial_Recognition_Smart_Alarm.Form1.resources
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial_Recognition_Smart_Alarm.Properties.Resources.resources
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial Recognition Smart Alarm.csproj.GenerateResource.cache
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial Recognition Smart Alarm.exe
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial Recognition Smart Alarm.pdb
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.dll
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.Video.DirectShow.dll
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.Video.dll
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Newtonsoft.Json.dll
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.xml
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.Video.xml
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\AForge.Video.DirectShow.xml
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\bin\Debug\Newtonsoft.Json.xml
+C:\Users\anas8\source\repos\Facial Recognition Smart Alarm\obj\Debug\Facial Recognition Smart Alarm.csproj.CopyComplete
