@@ -25,5 +25,6 @@ private:
 	void notificationLED();//Controls LEDS. Activates red LED for password error, flashes red LED if intruder detected and flashes green LED for succesful authentication
 	void notificationBuzzer();//Plays sounds for incorrect authentication, correct authentication, and alarm for intruder
 	void recordLogin();//Records users logged in to a file. We may need an extra public function to read from that file
+	//(CAN BE USED) - (Tentative plan) //byte pin; // Define pin for each of the component that needs to be connected to Arduino (for example: Buzzer is connected to pin 10 of Arduino)
 };
 
