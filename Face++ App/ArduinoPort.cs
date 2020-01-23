@@ -10,7 +10,7 @@ using System.IO.Ports;
 
 namespace Facial_Recognition_Smart_Alarm
 {
-    static class SerialCommunication
+    static class SerialCommunication //Static class allows acces for all functions in the Form1.cs code 
     {
         public static SerialPort _port;
     }

@@ -14,8 +14,9 @@ using AForge.Video;
 using AForge.Video.DirectShow;
 using Newtonsoft.Json.Linq;
 
-//Contribution to Code
-//Adding Serial Port communication to send data to Arduino
+//Contribution to Code 
+//Anas Nazha 
+//Adding Serial Port communication to send data to Arduino 
 using System.IO.Ports;
 //using System.Threading; Says it appears previously, no idea where
 
@@ -31,11 +32,13 @@ namespace Facial_Recognition_Smart_Alarm
         VideoCaptureDevice CurrentCam;
         FilterInfoCollection VideoDeviceCollection;
 
-        //All I know is that this is a thread (?) and that it monitors the status of an event
-        //which in this case is a bell ringing, and once a bell is rung then commence Facial recognition
-        Thread BellButtonListningThread;
+        //Contribution to Code 
+        //Anas Nazha 
+        //All I know is that this is a thread (?) and that it monitors the status of an event 
+        //which in this case is a bell ringing, and once a bell is rung then commence Facial recognition 
+        //  Thread BellButtonListningThread; 
         Thread FacialVerification_Listening_Thread;
-        //String List to hold names of authorized users and image data
+        //String List to hold names of authorized users and image data 
         List<string> NameList;
         List<string> ImageDataList;
 
@@ -51,13 +54,52 @@ namespace Facial_Recognition_Smart_Alarm
         //Adding Serial Port Initialization at startup 
         private void Form1_Load(object sender, EventArgs e) //Gets called when the Application starts
         {
+            /*Contribution to Code 
+              Anas Nazha 
+              Adding Serial Port Initialization at startup */
+            Console.BackgroundColor = ConsoleColor.Cyan;
+            Console.SetWindowSize(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Welcome!\n");
+            Console.SetWindowPosition(0, 0);
+            // Console.ReadKey(); 
             //Connecting to serial port
 
             SerialCommunication._port = new SerialPort("COM3", 9600, Parity.None, 8, StopBits.One);
-            // SerialCommunication._port.PortName = "COM3";
-            //  SerialCommunication._port.BaudRate = 9600;
-           
-            SerialCommunication._port.Open();
+            try
+            {
+                SerialCommunication._port.Open();
+                //Check if port is opened and updated Arduino Status on the app 
+                if (SerialCommunication._port.IsOpen)
+                {
+                    ArduinoStatus.Text = "CONNECTED";
+                    ArduinoStatus.ForeColor = Color.Green;
+                    StartMonitorButton.Enabled = false;
+                }
+            }
+
+            catch
+            {
+                ArduinoStatus.Text = "PORT NOT FOUND!";
+                ArduinoStatus.ForeColor = Color.Red;
+            }
+            string ArduinoData = null;
+            /*ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered 
+            Console.WriteLine(ArduinoData); 
+            ArduinoData = Console.ReadLine(); 
+            SerialCommunication._port.Write(ArduinoData); 
+            ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered 
+            Console.WriteLine(ArduinoData); 
+            SerialCommunication._port.Write(ArduinoData); 
+            Console.ReadKey(true); 
+            ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered 
+            Console.WriteLine(ArduinoData); 
+            ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered 
+            Console.WriteLine(ArduinoData);*/
+
+            StartAuthenticationInterface();
 
             // Settings will be NULL in the first run. Create new list if so.
             NameList = Properties.Settings.Default.FaceNames ?? new List<string>(); //List that holds names of trusted faces
@@ -86,6 +128,9 @@ namespace Facial_Recognition_Smart_Alarm
             CurrentCam = new VideoCaptureDevice(VideoDeviceCollection[VideoDevices.SelectedIndex].MonikerString);
             CurrentCam.NewFrame += new NewFrameEventHandler(NewFrame); // Start live display of feed from camera
             CurrentCam.Start();
+            FacialVerification_Listening_Thread = new Thread(new ThreadStart(VerificationListener));
+            //Facial_Verification_Request = true; 
+            FacialVerification_Listening_Thread.Start();
         }
         private void TrustedFacesList_CellContentClick(object sender, DataGridViewCellEventArgs e) //Method that removes a trusted face
         {
@@ -271,12 +316,7 @@ namespace Facial_Recognition_Smart_Alarm
                 return Convert.ToBase64String(ms.ToArray());
             }
         }
-
-
-        /*private void RingBell_Click_1(object sender, EventArgs e)  // Method that verifies a face and performs door unlock, upon successfull verification.
-        {
-
-        }*/
+   
         private async void RingBell_Click(object sender, EventArgs e) // Method that verifies a face and performs door unlock, upon successfull verification.
         {
             if (!SecurityRunning) return;
@@ -315,7 +355,7 @@ namespace Facial_Recognition_Smart_Alarm
                    //Contributed code
                    //Send Result to Arduino: Access Allowed
                     Send_Verification_Results(true);
-                    //   await UnlockDoor(); INSTEAD we can send verification back to Arduino to turn on LED's
+                   
 
                     StatusLabel.Text = "Running";
                     RingBell.Enabled = true;
@@ -326,10 +366,11 @@ namespace Facial_Recognition_Smart_Alarm
               
             }
 
-            synthesizer.SpeakAsync("You're not authorized. Step away from the door or Francesco will be triggered");
-            //Contributed code
-            //Anas Nazha
-            //Send Result to Arduino: Access Denied
+            synthesizer.SpeakAsync("You're not authorized.");
+
+            /*Contributed code 
+              Anas Nazha 
+              Send Result to Arduino: Access Denied*/
             Send_Verification_Results(false);
             
             StatusLabel.Text = "Authentication Failed";
@@ -346,108 +387,164 @@ namespace Facial_Recognition_Smart_Alarm
         //Insert Method that sends Verification result to Arduino using Serial Port
         private void Send_Verification_Results(bool allowed)
         {
-            if(allowed)
+            /*Contributed code 
+          Anas Nazha 
+          Sends verification result to Arduino using Serial Port*/
+            try
             {
-                SerialCommunication._port.Write("1");
-                Thread.Sleep(200);
+                if (allowed)
+                {
+                    SerialCommunication._port.Write("1");
+                    Thread.Sleep(200);
+                }
+                else
+                {
+                    SerialCommunication._port.Write("0");
+                    Thread.Sleep(200);
+                }
             }
-            else
+            catch
             {
-                SerialCommunication._port.Write("0");
-                Thread.Sleep(200);
+                StatusLabel.Text = "PORT NOT FOUND";
+                StopMonitorButton.Enabled = true;
+                return;
             }
         }
-        //Contributed to code
-        //Anas Nazha
-        //Automating Facial Recognition upon Arduino's request
-        //private void
-        
-        //The following method has been modified from original source code to suit ACS233 Project
+        /*Contributed code 
+            Anas Nazha 
+            Automating Facial Recognition upon Arduino's request*/
+
+        //The following method has been modified from original source code to suit ACS233 Project 
         private void StartMonitorButton_Click_1(object sender, EventArgs e)
         {
-            //For now  just enable Facial recognition
-            StartMonitorButton.Enabled = false;
-            FrontDoorGB.Enabled = false;
+            /*Contributed code 
+               Anas Nazha 
+               Catches Port not open error*/
+            try
+            {
+                StartMonitorButton.Enabled = false;
+                FrontDoorGB.Enabled = false;
 
-            StatusLabel.Text = "Connecting..";
-            StatusLabel.ForeColor = Color.Orange;
+                StatusLabel.Text = "Connecting..";
+                StatusLabel.ForeColor = Color.Orange;
 
-            SecurityRunning = true;
-            StopMonitorButton.Enabled = true;
-            StartMonitorButton.Enabled = false;
-            FrontDoorGB.Enabled = true;
+                if (SerialCommunication._port.IsOpen) //Do nothing if already connected 
+                {
 
-            StatusLabel.Text = "Running";
-            StatusLabel.ForeColor = Color.Green;
+                }
+                else
+                {
+                    SerialCommunication._port.Open();
+                }
+                //Check if port is opened and updated Status on the app 
+                ArduinoStatus.Text = "CONNECTED";
+                ArduinoStatus.ForeColor = Color.Green;
+                SecurityRunning = true;
+                StopMonitorButton.Enabled = true;
+                StartMonitorButton.Enabled = false;
+                FrontDoorGB.Enabled = true;
 
-            //Start a new thread that continously checks for calling bell button press signal
-           // BellButtonListningThread = new Thread(new ThreadStart(BellListner));
-            // ListenForBell = true;
-            //  BellButtonListningThread.Start();
-            FacialVerification_Listening_Thread = new Thread(new ThreadStart(VerificationListener));
-            Facial_Verification_Request = true;
-            FacialVerification_Listening_Thread.Start();
+                StatusLabel.Text = "Running";
+                StatusLabel.ForeColor = Color.Green;
+                Invoke(new Action(() => { RingBell_Click(null, null); }));
+                /*Removed:   BellButtonListningThread = new Thread(new ThreadStart(BellListner)); 
+                  ListenForBell = true; 
+                  BellButtonListningThread.Start(); */
+
+                //Start a new thread that continously checks for arduino request for facial verification 
+                //FacialVerification_Listening_Thread = new Thread(new ThreadStart(VerificationListener)); 
+                //Facial_Verification_Request = true; 
+                // FacialVerification_Listening_Thread.Start();        
+            }
+            catch (IOException)
+            {
+                StatusLabel.Text = "PORT NOT FOUND";
+                ArduinoStatus.Text = "NOT CONNECTED";
+                ArduinoStatus.ForeColor = Color.Red;
+                StopMonitorButton.Enabled = true;
+                return;
+            }
 
         }
-        //This method is also modified to suit ACS233 project
-        //Changes: async to void
-        //Async apparently has an await method to wait for a certain event to occur
-        //Using async to listen for arduino request
-      /*  private async void BellListner() //Method that listens to calling bell signal. Calls the function that performs verification, upon signal reception
-        {
-            // while (ListenForBell)
-            //  {
-            //  Response R = await myBolt.DigitalRead(DigitalPins.D4);
 
-            //  if (R.Value == "1")
-            //  {
-            Invoke(new Action(() => { RingBell_Click(null, null); }));
-            Thread.Sleep(2000);
-            //    }
-
-        //    Thread.Sleep(2000); //Suspends execution for 2 seconds. This is to avoid Bolt Cloud API request quota exhaustion
-                                // }
-        } */
         //Contributed code
         //Listen for arduino request for facial verification
+        /*Contributed code 
+           Anas Nazha 
+           Changes: async to void 
+                    async apparently has an await method to wait for a certain event to occur 
+                    Using void instead of async to listen for arduino request*/
+
+        //Listen for arduino request for facial verification 
         private void VerificationListener()
         {
-            //Testing logic
-            string ArduinoData = null;
-            Send_Verification_Results(true);
-            while(Facial_Verification_Request)
-           {
-                //ArduinoData = SerialCommunication._port.ReadExisting();
-                ArduinoData = SerialCommunication._port.ReadLine();
-                //Console.WriteLine(ArduinoData);
-                //Console.WriteLine(ArduinoData.Length);
-                ArduinoData = ArduinoData.Trim();
-                Console.WriteLine(ArduinoData);
-                Console.WriteLine(ArduinoData.Length);
+            //Testing logic 
+            string ArduinoData = null; //String variable that holds dat sent from arduino 
+            bool recievedData = false;
+            /*while(!recievedData) 
+            { 
+                try 
+                { 
+                    ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered 
+                    ArduinoData = ArduinoData.Trim(); //Trim any whitespaces with the data 
+                    if (string.Equals(ArduinoData, "1")) 
+                    { 
+                        recievedData = true; 
+                    } 
+ 
+                } 
+ 
+                catch 
+                { 
+                    SetFormChanges(this.AddFaceButton,this.ArduinoStatus,"Connect Arduino!",'N'); 
+                    return; //Exit out of function 
+                } 
+            } 
+ 
+           /* while (Facial_Verification_Request)  
+           { 
+                try 
+                { 
+                    ArduinoData = SerialCommunication._port.ReadLine(); //reads until "\n" is encountered     
+                } 
+ 
+                catch 
+                { 
+                    SetArduinoStatusText( "Connect Arduino!"); 
+                    return; //Exit out of function 
+                } 
+                ArduinoData = ArduinoData.Trim(); //Trim any whitespaces with the data 
+                //For debugging any issues, view the data and its length 
+                Console.WriteLine(ArduinoData); 
+                Console.WriteLine(ArduinoData.Length); 
+ 
+                if (string.Equals(ArduinoData,"1")) 
+                {*/
+            // Console.WriteLine("\nREQUEST RECEIVED"); 
+            SecurityRunning = true;
+            SetFormChanges(this.StartMonitorButton, this.ArduinoStatus, "Please Press Start!", 'N');
+            SetFormChanges(this.StartMonitorButton, this.ArduinoStatus, "NA", '1');
 
-                //Console.WriteLine("1".Length);
-                // Console.WriteLine(ArduinoData[0]);
-                // Console.WriteLine(ArduinoData[1]);
-                Console.WriteLine("Passed here");
 
 
-                  Console.WriteLine(string.Equals(ArduinoData, "1"));
-                if (string.Equals(ArduinoData,"1"))
-                {
-                    Console.WriteLine("WORKS!");
-                    Invoke(new Action(() => { RingBell_Click(null, null); }));
-                    Console.WriteLine(ArduinoData);
-                    Thread.Sleep(2000);
-                    Facial_Verification_Request = false;
-                }
-                //if (ArduinoData=="1\n")
-                // {
-                //    Invoke(new Action(() => { RingBell_Click(null, null); }));
-                // Console.WriteLine(ArduinoData);
-                //   Thread.Sleep(2000);
-                // }
-                Thread.Sleep(2000); //Suspends execution for 2 seconds. This is to avoid any reading errors through serial port
-           }
+            /* 
+                StopMonitorButton.Enabled = true; 
+                StartMonitorButton.Enabled = false; 
+                FrontDoorGB.Enabled = true; 
+ 
+                StatusLabel.Text = "Running"; 
+                StatusLabel.ForeColor = Color.Green;*/
+            /*   SetArduinoStatusText(this.StopMonitorButton,this.ArduinoStatus, "NOT CONNECTED!", '1'); 
+           SetArduinoStatusText(this.StartMonitorButton, this.ArduinoStatus, "NOT CONNECTED!", '0'); 
+           SetArduinoStatusText(this.StartMonitorButton, this.StatusLabel, "Running!", 'N');*/
+            //FrontDoorGB.Enabled = true; 
+            // Invoke(new Action(() => { RingBell_Click(null, null); })); 
+            //    Thread.Sleep(2000); 
+            //Facial_Verification_Request = false; 
+            // } 
+
+            Thread.Sleep(2000); //Suspends execution for 2 seconds. This is to avoid any reading errors through serial port 
+                                // } 
         }
         private void StopMonitorButton_Click_1(object sender, EventArgs e)
         {
@@ -455,17 +552,19 @@ namespace Facial_Recognition_Smart_Alarm
             FrontDoorGB.Enabled = false;
             StopMonitorButton.Enabled = false;
             StartMonitorButton.Enabled = true;
-            Send_Verification_Results(false);
+         //   Send_Verification_Results(false);
             StatusLabel.Text = "Not Running";
             StatusLabel.ForeColor = Color.Red;
             Facial_Verification_Request = false;
-            //ListenForBell = false;
+            ////SetArduinoStatusText(this.StartMonitorButton,this.ArduinoStatus,"NOT CONNECTED!",'N'); 
+            //ListenForBell = false; 
         }
 
 
 
         //Original code had no method for the status label
 
+        //Code kept for reference 
         /*   private async void LockDoorButton_Click(object sender, EventArgs e) // Method that gets called when user presses lock button
            {
                MonitorControls.Enabled = false;
@@ -485,5 +584,97 @@ namespace Facial_Recognition_Smart_Alarm
             //Release the camera device before exiting
             CurrentCam.Stop();
         }
+
+        //Following Code from https://stackoverflow.com/questions/10775367/cross-thread-operation-not-valid-control-textbox1-accessed-from-a-thread-othe 
+        //Allows Thread Safe Calls to Windows forms application 
+        delegate void SetTextCallback(Button B, Label L, string text, char t_or_f);
+
+        /*Contributed code 
+            Anas Nazha 
+            Changes: Added the ability to perform changes to buttons and text 
+                     not the best code but it works. 
+            */
+        private void SetFormChanges(Button B, Label L, string text, char T_or_F)
+        {
+            // InvokeRequired required compares the thread ID of the 
+            // calling thread to the thread ID of the creating thread. 
+            // If these threads are different, it returns true. 
+            if (T_or_F == 'N') //N means no changes for true or false and thus only change text 
+            {
+
+
+                if (B.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetFormChanges);
+                    this.Invoke(d, new object[] { B, L, text, T_or_F });
+                }
+                else
+                {
+                    L.Text = text;
+                }
+                return;
+            }
+            else if (T_or_F == '0') //change the button to false 
+            {
+                if (B.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetFormChanges);
+                    this.Invoke(d, new object[] { B, L, text, T_or_F });
+                }
+                else
+                {
+                    B.Enabled = false;
+                }
+            }
+            else if (T_or_F == '1') //change the button to true 
+            {
+                if (B.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(SetFormChanges);
+                    this.Invoke(d, new object[] { B, L, text, T_or_F });
+
+                }
+                else
+                {
+                    B.Enabled = true;
+                }
+            }
+        }
+        /*Contributed code 
+            Anas Nazha 
+             Adding Interface to get input for Verification method and notifying the Arduino. 
+            */
+        private void AuthenticationInterface()
+        {
+            SpeechSynthesizer synthesizer = new SpeechSynthesizer
+            {
+                Volume = 100,  // 0...100 
+                Rate = 1     // -10...10 
+            };
+            synthesizer.SpeakAsync("Please enter verification method");
+            string ArduinoData = null;
+            Console.WriteLine("Enter Authentication Method, P for pin, or F for facial");
+            ArduinoData = Console.ReadLine();
+            SerialCommunication._port.Write(ArduinoData);
+            ArduinoData = SerialCommunication._port.ReadLine();
+            Console.WriteLine(ArduinoData);
+
+        }
+        private void StartAuthenticationInterface()
+        {
+            string ArduinoData = null;
+            while (SerialCommunication._port.IsOpen)
+            {
+                ArduinoData = SerialCommunication._port.ReadLine();
+                //ArduinoData = Console.ReadLine(); 
+                ArduinoData = ArduinoData.Trim();
+                if (string.Equals(ArduinoData, "S"))
+                {
+                    AuthenticationInterface();
+                    return;
+                }
+            }
+        }
     }
 }
+

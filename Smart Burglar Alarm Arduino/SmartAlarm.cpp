@@ -5,15 +5,24 @@ All methods appear in order as defined in the header file except void run() whic
 
 
 //Takes in an array of users. Maybe initialize size to avoid any issue ?
-SmartAlarm::SmartAlarm(User Allowed[])
+SmartAlarm::SmartAlarm(User users[])
 {
-
+	//Initializes allowed users 
+	for (int i = 0;i < 5;i++)
+	{
+		this->Allowed[i] = users[i];
+	}
+	//Run the system 
+	this->run();
 }
 
 //Checks whether the systme is idle or acive
 bool SmartAlarm::CheckSystemState()
 {
-
+	//Retrieve Sensor information 
+	this->GetMagnetData(); //Get window status 
+	this->GetSolenoidData(); //Get door status 
+	this->GetPIRData(); //Get motion sensor status 
 }
 
 //Verifies User login by calling pin verification method or facial verification method or both
@@ -51,7 +60,24 @@ bool SmartAlarm::PinVerification()
 //Should send request to the C# Application
 bool SmartAlarm::FacialVerification()
 {
-
+	/*Sends a signal, for now "1", to the Face++ App
+  Face++ App responds by unlocking the Start button and asks the user to take a photo.
+  Verification results are sent back to the Arduino with "true" being succesfull and "false" otherwise*/
+	string receivedData = NULL; //String that receives data from the app 
+	//delay(100); UNCOMMENT when in arduino IDE 
+	//Serial.println(REQUEST_FACIAL_VERIFICATION); 
+	while (Serial.available() > 0)
+	{
+		receivedData = Serial.readStringUntil("\n"); //Might need to filter incoming data 
+		if (receivedData == FACIAL_VERIFICATION_FALSE)
+		{
+			return false;
+		}
+		else if (receivedData == FACIAL_VERIFICATION_TRUE)
+		{
+			return true;
+		}
+	}
 }
 
 //Controls LEDS. Activates red LED for password error, flashes red LED if intruder detected and flashes green LED for succesful authentication

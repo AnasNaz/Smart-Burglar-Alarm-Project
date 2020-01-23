@@ -1,4 +1,7 @@
-﻿namespace Facial_Recognition_Smart_Alarm
+﻿using System.Drawing;
+using System.Windows.Forms;
+
+namespace Facial_Recognition_Smart_Alarm
 {
 
     partial class Form1
@@ -29,7 +32,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.Monitor = new System.Windows.Forms.PictureBox();
             this.VideoDevices = new System.Windows.Forms.ComboBox();
@@ -49,8 +52,6 @@
             this.RemoveOption = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.FrontDoorGB = new System.Windows.Forms.GroupBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.LockDoorButton = new System.Windows.Forms.Button();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.RingBell = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -58,6 +59,8 @@
             this.MonitorControls = new System.Windows.Forms.GroupBox();
             this.StartMonitorButton = new System.Windows.Forms.Button();
             this.StopMonitorButton = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ArduinoStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             ((System.ComponentModel.ISupportInitialize)(this.Monitor)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -68,11 +71,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.TrustedFacesList)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.FrontDoorGB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.MonitorControls.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -276,6 +279,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox3);
             this.tabPage1.Controls.Add(this.FrontDoorGB);
             this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.MonitorControls);
@@ -288,41 +292,18 @@
             this.tabPage1.Text = "Security Status";
             // 
             // FrontDoorGB
-            // 
-            this.FrontDoorGB.Controls.Add(this.pictureBox1);
-            this.FrontDoorGB.Controls.Add(this.LockDoorButton);
+            //
             this.FrontDoorGB.Controls.Add(this.pictureBox3);
             this.FrontDoorGB.Controls.Add(this.RingBell);
             this.FrontDoorGB.Enabled = false;
-            this.FrontDoorGB.Location = new System.Drawing.Point(23, 326);
+            this.FrontDoorGB.Location = new System.Drawing.Point(23, 424);
             this.FrontDoorGB.Margin = new System.Windows.Forms.Padding(4);
             this.FrontDoorGB.Name = "FrontDoorGB";
             this.FrontDoorGB.Padding = new System.Windows.Forms.Padding(4);
-            this.FrontDoorGB.Size = new System.Drawing.Size(423, 190);
+            this.FrontDoorGB.Size = new System.Drawing.Size(423, 106);
             this.FrontDoorGB.TabIndex = 94;
             this.FrontDoorGB.TabStop = false;
             this.FrontDoorGB.Text = "Front Door";
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.Location = new System.Drawing.Point(63, 121);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(56, 32);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 96;
-            this.pictureBox1.TabStop = false;
-            // 
-            // LockDoorButton
-            // 
-            this.LockDoorButton.Location = new System.Drawing.Point(127, 110);
-            this.LockDoorButton.Margin = new System.Windows.Forms.Padding(4);
-            this.LockDoorButton.Name = "LockDoorButton";
-            this.LockDoorButton.Size = new System.Drawing.Size(231, 50);
-            this.LockDoorButton.TabIndex = 95;
-            this.LockDoorButton.Text = "Lock Door";
-            this.LockDoorButton.UseVisualStyleBackColor = true;
             // 
             // pictureBox3
             // 
@@ -349,7 +330,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.StatusLabel);
-            this.groupBox4.Location = new System.Drawing.Point(23, 201);
+            this.groupBox4.Location = new System.Drawing.Point(23, 174);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
@@ -369,7 +350,6 @@
             this.StatusLabel.TabIndex = 93;
             this.StatusLabel.Text = "NOT RUNNING";
             this.StatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
             // 
             // MonitorControls
             // 
@@ -379,7 +359,7 @@
             this.MonitorControls.Margin = new System.Windows.Forms.Padding(4);
             this.MonitorControls.Name = "MonitorControls";
             this.MonitorControls.Padding = new System.Windows.Forms.Padding(4);
-            this.MonitorControls.Size = new System.Drawing.Size(423, 166);
+            this.MonitorControls.Size = new System.Drawing.Size(423, 138);
             this.MonitorControls.TabIndex = 92;
             this.MonitorControls.TabStop = false;
             this.MonitorControls.Text = "Face Monitoring";
@@ -419,6 +399,30 @@
             this.tabControl1.Size = new System.Drawing.Size(477, 572);
             this.tabControl1.TabIndex = 90;
             // 
+            // groupBox3 
+            //  
+            this.groupBox3.Controls.Add(this.ArduinoStatus);
+            this.groupBox3.Location = new System.Drawing.Point(23, 294);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(423, 112);
+            this.groupBox3.TabIndex = 94;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Arduino Status";
+            //  
+            // ArduinoStatus 
+            //  
+            this.ArduinoStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.ArduinoStatus.ForeColor = System.Drawing.Color.Red;
+            this.ArduinoStatus.Location = new System.Drawing.Point(8, 31);
+            this.ArduinoStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ArduinoStatus.Name = "ArduinoStatus";
+            this.ArduinoStatus.Size = new System.Drawing.Size(407, 42);
+            this.ArduinoStatus.TabIndex = 93;
+            this.ArduinoStatus.Text = "NOT CONNECTED";
+            this.ArduinoStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //  
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -444,11 +448,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.TrustedFacesList)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.FrontDoorGB.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.MonitorControls.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -474,8 +478,6 @@
         private System.Windows.Forms.DataGridViewButtonColumn RemoveOption;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox FrontDoorGB;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button LockDoorButton;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.Button RingBell;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -484,6 +486,8 @@
         private System.Windows.Forms.Button StartMonitorButton;
         private System.Windows.Forms.Button StopMonitorButton;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label ArduinoStatus;
     }
 }
 

@@ -116,6 +116,7 @@
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DEFINITIONS.h" />
     <ClInclude Include="SmartAlarm.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
