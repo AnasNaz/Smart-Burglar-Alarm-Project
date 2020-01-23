@@ -1,0 +1,43 @@
+#define PIR_Pin 2
+#define MagneticWindow_Pin 3
+#define Solenoid_Pin 4
+
+
+pinMode(PIR_Pin,INPUT);
+pinMode(MagneticWindow_Pin,INPUT_PULLUP);
+pinMode(Solenoid_Pin,INPUT);
+
+void GetPIRData(){
+    int val; int PIR_state = LOW;
+    val = digitalRead(PIR_Pin);
+    if (val == HIGH){
+        CheckAuthenticationMethod();
+        if (PIR_state == LOW){
+            Serial.println("Motion detected");
+            PIR_State = HIGH;
+        }
+    }
+    else{
+        if (PIR_State == HIGH){
+            Serial.println("Motion Ended");
+            PIR_State = LOW;
+        }
+    }
+}
+
+void GetSolenoidData(){
+    int state;
+    state = digitalRead(Solenoid_Pin);
+    if (state == HIGH){
+        CheckAuthenticationMethod();
+    }
+}
+
+void GetMagnetData(){
+    int state;
+    state = digitalRead(MagneticWindow_Pin);
+    if (state == HIGH){
+        triggerAlarm();
+        Serial.println("Forced Entry through Window /// ALARM ACTIVATED");
+    }
+}
