@@ -32,9 +32,7 @@ namespace Facial_Recognition_Smart_Alarm
         /// </summary>
         private void InitializeComponent()
         {
-            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
-            this.Monitor = new System.Windows.Forms.PictureBox();
             this.VideoDevices = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -44,38 +42,39 @@ namespace Facial_Recognition_Smart_Alarm
             this.FaceNameTextBox = new System.Windows.Forms.TextBox();
             this.AddFaceButton = new System.Windows.Forms.Button();
             this.SnapFaceButton = new System.Windows.Forms.Button();
-            this.PreviewBox = new System.Windows.Forms.PictureBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.TrustedFacesList = new System.Windows.Forms.DataGridView();
             this.SlNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PersonName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RemoveOption = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ArduinoStatus = new System.Windows.Forms.Label();
             this.FrontDoorGB = new System.Windows.Forms.GroupBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.RingBell = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.StatusLabel = new System.Windows.Forms.Label();
             this.MonitorControls = new System.Windows.Forms.GroupBox();
             this.StartMonitorButton = new System.Windows.Forms.Button();
             this.StopMonitorButton = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.ArduinoStatus = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            ((System.ComponentModel.ISupportInitialize)(this.Monitor)).BeginInit();
+            this.RequestLogins = new System.Windows.Forms.Button();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.PreviewBox = new System.Windows.Forms.PictureBox();
+            this.Monitor = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.AddNewGB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TrustedFacesList)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.FrontDoorGB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.MonitorControls.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Monitor)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -88,17 +87,6 @@ namespace Facial_Recognition_Smart_Alarm
             this.button1.Text = "Refresh Camera Devices";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.RefreshButton_Click);
-            // 
-            // Monitor
-            // 
-            this.Monitor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Monitor.Location = new System.Drawing.Point(13, 62);
-            this.Monitor.Margin = new System.Windows.Forms.Padding(4);
-            this.Monitor.Name = "Monitor";
-            this.Monitor.Size = new System.Drawing.Size(695, 500);
-            this.Monitor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.Monitor.TabIndex = 2;
-            this.Monitor.TabStop = false;
             // 
             // VideoDevices
             // 
@@ -209,17 +197,6 @@ namespace Facial_Recognition_Smart_Alarm
             this.SnapFaceButton.UseVisualStyleBackColor = true;
             this.SnapFaceButton.Click += new System.EventHandler(this.SnapFaceButton_Click);
             // 
-            // PreviewBox
-            // 
-            this.PreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PreviewBox.Location = new System.Drawing.Point(11, 69);
-            this.PreviewBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PreviewBox.Name = "PreviewBox";
-            this.PreviewBox.Size = new System.Drawing.Size(430, 180);
-            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.PreviewBox.TabIndex = 89;
-            this.PreviewBox.TabStop = false;
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.TrustedFacesList);
@@ -291,10 +268,34 @@ namespace Facial_Recognition_Smart_Alarm
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Security Status";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.ArduinoStatus);
+            this.groupBox3.Location = new System.Drawing.Point(23, 294);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(423, 112);
+            this.groupBox3.TabIndex = 94;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Arduino Status";
+            // 
+            // ArduinoStatus
+            // 
+            this.ArduinoStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.ArduinoStatus.ForeColor = System.Drawing.Color.Red;
+            this.ArduinoStatus.Location = new System.Drawing.Point(8, 31);
+            this.ArduinoStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ArduinoStatus.Name = "ArduinoStatus";
+            this.ArduinoStatus.Size = new System.Drawing.Size(407, 42);
+            this.ArduinoStatus.TabIndex = 93;
+            this.ArduinoStatus.Text = "NOT CONNECTED";
+            this.ArduinoStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // FrontDoorGB
-            //
+            // 
+            this.FrontDoorGB.Controls.Add(this.RequestLogins);
             this.FrontDoorGB.Controls.Add(this.pictureBox3);
-            this.FrontDoorGB.Controls.Add(this.RingBell);
             this.FrontDoorGB.Enabled = false;
             this.FrontDoorGB.Location = new System.Drawing.Point(23, 424);
             this.FrontDoorGB.Margin = new System.Windows.Forms.Padding(4);
@@ -303,29 +304,7 @@ namespace Facial_Recognition_Smart_Alarm
             this.FrontDoorGB.Size = new System.Drawing.Size(423, 106);
             this.FrontDoorGB.TabIndex = 94;
             this.FrontDoorGB.TabStop = false;
-            this.FrontDoorGB.Text = "Front Door";
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox3.Location = new System.Drawing.Point(63, 44);
-            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(56, 38);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 93;
-            this.pictureBox3.TabStop = false;
-            // 
-            // RingBell
-            // 
-            this.RingBell.Location = new System.Drawing.Point(127, 37);
-            this.RingBell.Margin = new System.Windows.Forms.Padding(4);
-            this.RingBell.Name = "RingBell";
-            this.RingBell.Size = new System.Drawing.Size(231, 50);
-            this.RingBell.TabIndex = 89;
-            this.RingBell.Text = "Ding Dong!";
-            this.RingBell.UseVisualStyleBackColor = true;
-            this.RingBell.Click += new System.EventHandler(this.RingBell_Click);
+            this.FrontDoorGB.Text = "Login Database";
             // 
             // groupBox4
             // 
@@ -399,30 +378,52 @@ namespace Facial_Recognition_Smart_Alarm
             this.tabControl1.Size = new System.Drawing.Size(477, 572);
             this.tabControl1.TabIndex = 90;
             // 
-            // groupBox3 
-            //  
-            this.groupBox3.Controls.Add(this.ArduinoStatus);
-            this.groupBox3.Location = new System.Drawing.Point(23, 294);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(423, 112);
-            this.groupBox3.TabIndex = 94;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Arduino Status";
-            //  
-            // ArduinoStatus 
-            //  
-            this.ArduinoStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.ArduinoStatus.ForeColor = System.Drawing.Color.Red;
-            this.ArduinoStatus.Location = new System.Drawing.Point(8, 31);
-            this.ArduinoStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.ArduinoStatus.Name = "ArduinoStatus";
-            this.ArduinoStatus.Size = new System.Drawing.Size(407, 42);
-            this.ArduinoStatus.TabIndex = 93;
-            this.ArduinoStatus.Text = "NOT CONNECTED";
-            this.ArduinoStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            //  
+            // RequestLogins
+            // 
+            this.RequestLogins.Location = new System.Drawing.Point(127, 37);
+            this.RequestLogins.Margin = new System.Windows.Forms.Padding(4);
+            this.RequestLogins.Name = "RequestLogins";
+            this.RequestLogins.Size = new System.Drawing.Size(231, 50);
+            this.RequestLogins.TabIndex = 94;
+            this.RequestLogins.Text = "View Recorded Logins";
+            this.RequestLogins.UseVisualStyleBackColor = true;
+            this.RequestLogins.Click += new System.EventHandler(this.RequestLogins_Click);
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox3.BackgroundImage = global::Facial_Recognition_Smart_Alarm.Properties.Resources.logo_eye_png;
+            this.pictureBox3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox3.Location = new System.Drawing.Point(63, 44);
+            this.pictureBox3.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(56, 38);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox3.TabIndex = 93;
+            this.pictureBox3.TabStop = false;
+            // 
+            // PreviewBox
+            // 
+            this.PreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PreviewBox.Location = new System.Drawing.Point(11, 69);
+            this.PreviewBox.Margin = new System.Windows.Forms.Padding(4);
+            this.PreviewBox.Name = "PreviewBox";
+            this.PreviewBox.Size = new System.Drawing.Size(430, 180);
+            this.PreviewBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.PreviewBox.TabIndex = 89;
+            this.PreviewBox.TabStop = false;
+            // 
+            // Monitor
+            // 
+            this.Monitor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Monitor.Location = new System.Drawing.Point(13, 62);
+            this.Monitor.Margin = new System.Windows.Forms.Padding(4);
+            this.Monitor.Name = "Monitor";
+            this.Monitor.Size = new System.Drawing.Size(695, 500);
+            this.Monitor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.Monitor.TabIndex = 2;
+            this.Monitor.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -438,21 +439,21 @@ namespace Facial_Recognition_Smart_Alarm
             this.Text = "Face++ Recognition";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.Monitor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.AddNewGB.ResumeLayout(false);
             this.AddNewGB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.TrustedFacesList)).EndInit();
             this.tabPage1.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.FrontDoorGB.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.MonitorControls.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Monitor)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -479,7 +480,6 @@ namespace Facial_Recognition_Smart_Alarm
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox FrontDoorGB;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Button RingBell;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label StatusLabel;
         private System.Windows.Forms.GroupBox MonitorControls;
@@ -488,6 +488,7 @@ namespace Facial_Recognition_Smart_Alarm
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label ArduinoStatus;
+        private Button RequestLogins;
     }
 }
 

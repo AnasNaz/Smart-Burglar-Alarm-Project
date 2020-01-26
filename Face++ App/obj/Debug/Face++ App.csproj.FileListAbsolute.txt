@@ -17,3 +17,4 @@ C:\Users\anas8\source\repos\Face ++ App Git Repo\Face++ App\obj\Debug\Face++ App
 C:\Users\anas8\source\repos\Face ++ App Git Repo\Face++ App\obj\Debug\Face++ App.csproj.CopyComplete
 C:\Users\anas8\source\repos\Face ++ App Git Repo\Face++ App\obj\Debug\Facial Recognition Smart Alarm.exe
 C:\Users\anas8\source\repos\Face ++ App Git Repo\Face++ App\obj\Debug\Facial Recognition Smart Alarm.pdb
+C:\Users\anas8\source\repos\Face ++ App Git Repo\Face++ App\obj\Debug\Facial_Recognition_Smart_Alarm.Splash_Screen.resources

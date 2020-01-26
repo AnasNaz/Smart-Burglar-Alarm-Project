@@ -13,12 +13,11 @@ namespace Facial_Recognition_Smart_Alarm
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-       // static SerialPort _port;
         static void Main()
         {
             Application.EnableVisualStyles();
-             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new Form1());
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Form1());
         }
 
     }
