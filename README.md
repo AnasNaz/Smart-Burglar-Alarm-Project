@@ -1,5 +1,5 @@
 # Smart Burglar Alarm Project
-Smart Burgler Alarm is an Arduino project that provides a security system with facial recognition using [Face++ API](https://www.faceplusplus.com/). For this course project, we were given a kit of sensors, which will be shown in a schematic diagram below, and stakeholder requirements.
+Smart Burglar Alarm is an Arduino project that provides a security system with facial recognition using [Face++ API](https://www.faceplusplus.com/). For this course project, we were given a kit of sensors, which will be shown in a schematic diagram below, and stakeholder requirements.
 ## Schematic Diagram
 ![Image of Schematic Diagram](https://github.com/AnasNaz/Smart-Burglar-Alarm-Project/blob/master/Schematic.png)
 ## Designing Requirements
