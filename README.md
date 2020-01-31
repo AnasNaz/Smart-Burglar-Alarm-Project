@@ -3,7 +3,7 @@ Smart Burglar Alarm is an Arduino project that provides a security system with f
 ## Schematic Diagram
 ![Image of Schematic Diagram](https://github.com/AnasNaz/Smart-Burglar-Alarm-Project/blob/master/Schematic.png)
 ## Designing Requirements
-In order to successfuly capture the stakeholder needs as well as **nonfunctional requirements** such as dealing with maintenance and design all of the desirable behaviours of the system, a Systems Engineering approach was taken in which we design the User and System requirements, get feedback from the stakeholder, create UML diagrams such as a **Use case** diagram and an **Activity** diagram and finally verify that the requirements are traceable. The following images illustrate the use case and activity diagrams:
+In order to successfully capture the stakeholder needs as well as **nonfunctional requirements** such as dealing with maintenance and design all of the desirable behaviors of the system, a Systems Engineering approach was taken in which we design the User and System requirements, get feedback from the stakeholder, create UML diagrams such as a **Use case** diagram and an **Activity** diagram and finally verify that the requirements are traceable. The following images illustrate the use case and activity diagrams:
 ![Image of Use Case Diagram](https://github.com/AnasNaz/Smart-Burglar-Alarm-Project/blob/master/SMART%20Burglar%20System-%20Use-Case%20Diagram.png)
 ![Image of Activity Diagram](https://github.com/AnasNaz/Smart-Burglar-Alarm-Project/blob/master/UML%20Activity%20Diagram%20Example%20-%20Revised%203.0.png)
 ## Object Oriented Programming
